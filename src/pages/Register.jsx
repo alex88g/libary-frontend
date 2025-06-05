@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../Register.css";
 
 // Dynamisk API-url beroende på miljö
-const API_BASE = import.meta.env.VITE_API_BASE;
+const API_BASE = import.meta.env.VITE_API_URL || "/api";
 
 const Register = () => {
   const [form, setForm] = useState({
