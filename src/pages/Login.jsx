@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Login.css";
 
-const API_BASE = "/api";
+const API_BASE = "http://localhost:5000/api";
 
 const Login = () => {
   const [form, setForm] = useState({
@@ -27,13 +27,13 @@ const Login = () => {
       localStorage.setItem("role", res.data.user.role);
       localStorage.setItem("userId", res.data.user.id);
 
-      toast.success("✅ Inloggning lyckades!");
+      toast.success("Inloggning lyckades!");
 
       setTimeout(() => {
         window.location.href = res.data.user.role === "admin" ? "/admin" : "/";
       }, 1500);
     } catch (err) {
-      const message = err.response?.data?.message || "❌ Inloggning misslyckades";
+      const message = err.response?.data?.message || "Inloggning misslyckades";
       toast.error(message);
     }
   };

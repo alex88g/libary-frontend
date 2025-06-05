@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../AdminDashboard.css";
 
-const API_BASE = "/api";
+const API_BASE = "http://localhost:5000/api";
 
 const AdminDashboard = () => {
   const [books, setBooks] = useState([]);
@@ -34,7 +34,7 @@ const AdminDashboard = () => {
       const res = await axios.get(`${API_BASE}/books`);
       setBooks(res.data);
     } catch (err) {
-      toast.error("❌ Kunde inte hämta böcker");
+      toast.error("Kunde inte hämta böcker");
     } finally {
       setLoading(false);
     }
@@ -54,13 +54,13 @@ const AdminDashboard = () => {
         await axios.put(`${API_BASE}/books/${editId}`, form, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        toast.success("✅ Boken har uppdaterats");
+        toast.success("Boken har uppdaterats");
         setEditId(null);
       } else {
         await axios.post(`${API_BASE}/books`, form, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        toast.success("✅ Ny bok har lagts till");
+        toast.success("Ny bok har lagts till");
       }
 
       setForm({
@@ -83,7 +83,7 @@ const AdminDashboard = () => {
       fetchBooks();
     } catch (err) {
       console.error("Fel:", err.response?.data || err.message);
-      toast.error("❌ Fel vid sparande av bok");
+      toast.error("Fel vid sparande av bok");
     }
   };
 
@@ -94,10 +94,10 @@ const AdminDashboard = () => {
         await axios.delete(`${API_BASE}/books/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        toast.success("🗑️ Boken har raderats");
+        toast.success("Boken har raderats");
         fetchBooks();
       } catch (err) {
-        toast.error("❌ Kunde inte radera boken");
+        toast.error("Kunde inte radera boken");
       }
     }
   };
@@ -120,7 +120,7 @@ const AdminDashboard = () => {
       format: book.format,
       location: book.location
     });
-    toast.info("✏️ Redigerar bok");
+    toast.info("Redigerar bok");
   };
 
   useEffect(() => {

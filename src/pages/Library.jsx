@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Library.css";
 
-const API_BASE = "/api";
+const API_BASE = "http://localhost:5000/api";
 
 const Library = () => {
   const [books, setBooks] = useState([]);
@@ -15,14 +15,14 @@ const Library = () => {
       const res = await axios.get(`${API_BASE}/books`);
       setBooks(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
-      toast.error("❌ Kunde inte hämta böcker");
+      toast.error("Kunde inte hämta böcker");
     }
   };
 
   const handleBorrow = async (bookId, durationDays = 14) => {
     const token = localStorage.getItem("token");
     if (!token) {
-      toast.warning("⚠️ Du måste logga in för att låna en bok");
+      toast.warning("Du måste logga in för att låna en bok");
       return;
     }
 
@@ -37,10 +37,10 @@ const Library = () => {
           },
         }
       );
-      toast.success("✅ Boken har lånats!");
+      toast.success("Boken har lånats!");
       fetchBooks();
     } catch (err) {
-      const message = err.response?.data?.message || "❌ Något gick fel vid lånet.";
+      const message = err.response?.data?.message || "Något gick fel vid lånet.";
       toast.error(message);
     }
   };
