@@ -4,7 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Register.css";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+// Dynamisk API-url beroende på miljö
+const API_BASE = import.meta.env.VITE_API_URL || "/api";
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -45,40 +46,39 @@ const Register = () => {
   return (
     <div className="register-container">
       <ToastContainer position="top-center" autoClose={3000} />
-    <form onSubmit={handleRegister} className="register-form" autoComplete="off">
-  <h2>Skapa konto</h2>
-  {error && <p className="error-text">{error}</p>}
+      <form onSubmit={handleRegister} className="register-form" autoComplete="off">
+        <h2>Skapa konto</h2>
+        {error && <p className="error-text">{error}</p>}
 
-  <input
-    name="username"
-    type="text"
-    placeholder="Användarnamn"
-    value={form.username}
-    onChange={handleChange}
-    required
-    autoComplete="off"
-  />
-  <input
-    name="email"
-    type="email"
-    placeholder="E-postadress"
-    value={form.email}
-    onChange={handleChange}
-    required
-    autoComplete="off"
-  />
-  <input
-    name="password"
-    type="password"
-    placeholder="Lösenord (minst 8 tecken)"
-    value={form.password}
-    onChange={handleChange}
-    required
-    autoComplete="new-password"
-  />
-  <button type="submit">Registrera</button>
-</form>
-
+        <input
+          name="username"
+          type="text"
+          placeholder="Användarnamn"
+          value={form.username}
+          onChange={handleChange}
+          required
+          autoComplete="off"
+        />
+        <input
+          name="email"
+          type="email"
+          placeholder="E-postadress"
+          value={form.email}
+          onChange={handleChange}
+          required
+          autoComplete="off"
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="Lösenord (minst 8 tecken)"
+          value={form.password}
+          onChange={handleChange}
+          required
+          autoComplete="new-password"
+        />
+        <button type="submit">Registrera</button>
+      </form>
     </div>
   );
 };

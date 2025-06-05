@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Login.css";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API_BASE = import.meta.env.VITE_API_URL || "/api";
 
 const Login = () => {
   const [form, setForm] = useState({
@@ -27,13 +27,13 @@ const Login = () => {
       localStorage.setItem("role", res.data.user.role);
       localStorage.setItem("userId", res.data.user.id);
 
-      toast.success("Inloggning lyckades!");
+      toast.success("✅ Inloggning lyckades!");
 
       setTimeout(() => {
         window.location.href = res.data.user.role === "admin" ? "/admin" : "/";
       }, 1500);
     } catch (err) {
-      const message = err.response?.data?.message || "Inloggning misslyckades";
+      const message = err.response?.data?.message || "❌ Inloggning misslyckades";
       toast.error(message);
     }
   };
@@ -41,35 +41,34 @@ const Login = () => {
   return (
     <div className="login-container">
       <ToastContainer position="top-center" autoClose={3000} />
-     <form onSubmit={handleLogin} className="login-form" autoComplete="off">
-  <h2>🔐 Logga in</h2>
+      <form onSubmit={handleLogin} className="login-form" autoComplete="off">
+        <h2>🔐 Logga in</h2>
 
-  <input
-    name="username"
-    type="text"
-    placeholder="Användarnamn"
-    value={form.username}
-    onChange={handleChange}
-    required
-    autoComplete="off"
-  />
-  <input
-    name="password"
-    type="password"
-    placeholder="Lösenord"
-    value={form.password}
-    onChange={handleChange}
-    required
-    autoComplete="new-password"
-  />
-  <button type="submit">Logga in</button>
+        <input
+          name="username"
+          type="text"
+          placeholder="Användarnamn"
+          value={form.username}
+          onChange={handleChange}
+          required
+          autoComplete="off"
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="Lösenord"
+          value={form.password}
+          onChange={handleChange}
+          required
+          autoComplete="new-password"
+        />
+        <button type="submit">Logga in</button>
 
-  <div className="login-links">
-    <Link to="/forgot-password">Glömt lösenord?</Link>
-    <Link to="/register">Skapa konto</Link>
-  </div>
-</form>
-
+        <div className="login-links">
+          <Link to="/forgot-password">Glömt lösenord?</Link>
+          <Link to="/register">Skapa konto</Link>
+        </div>
+      </form>
     </div>
   );
 };

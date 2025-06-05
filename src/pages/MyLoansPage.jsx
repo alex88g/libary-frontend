@@ -4,6 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../MyLoansPage.css";
 
+const API_BASE = import.meta.env.VITE_API_URL || "/api";
+
 const MyLoans = () => {
   const [loans, setLoans] = useState([]);
   const userId = localStorage.getItem("userId");
@@ -12,7 +14,7 @@ const MyLoans = () => {
   useEffect(() => {
     const fetchLoans = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/loans/user/${userId}`, {
+        const res = await axios.get(`${API_BASE}/loans/user/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setLoans(res.data);
@@ -22,12 +24,12 @@ const MyLoans = () => {
         toast.error("Kunde inte hämta dina lån.");
       }
     };
-    fetchLoans();
+    if (userId && token) fetchLoans();
   }, [userId, token]);
 
   const returnLoan = async (loanId) => {
     try {
-      await axios.put(`http://localhost:5000/api/loans/return/${loanId}`, {}, {
+      await axios.put(`${API_BASE}/loans/return/${loanId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setLoans(loans.filter(loan => loan.id !== loanId));
@@ -39,7 +41,7 @@ const MyLoans = () => {
 
   const renewLoan = async (loanId) => {
     try {
-      await axios.put(`http://localhost:5000/api/loans/renew/${loanId}`, {}, {
+      await axios.put(`${API_BASE}/loans/renew/${loanId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success("Lånet har förlängts med 14 dagar.");

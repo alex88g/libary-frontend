@@ -5,28 +5,30 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Library.css";
 
+const API_BASE = import.meta.env.VITE_API_BASE || "/api";
+
 const Library = () => {
   const [books, setBooks] = useState([]);
 
   const fetchBooks = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/books");
+      const res = await axios.get(`${API_BASE}/books`);
       setBooks(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
-      toast.error("Kunde inte hämta böcker");
+      toast.error("❌ Kunde inte hämta böcker");
     }
   };
 
   const handleBorrow = async (bookId, durationDays = 14) => {
     const token = localStorage.getItem("token");
     if (!token) {
-      toast.warning("Du måste logga in för att låna en bok");
+      toast.warning("⚠️ Du måste logga in för att låna en bok");
       return;
     }
 
     try {
       await axios.post(
-        "http://localhost:5000/api/loans",
+        `${API_BASE}/loans`,
         { bookId, durationDays },
         {
           headers: {
@@ -35,10 +37,10 @@ const Library = () => {
           },
         }
       );
-      toast.success("Boken har lånats!");
+      toast.success("✅ Boken har lånats!");
       fetchBooks();
     } catch (err) {
-      const message = err.response?.data?.message || "Något gick fel vid lånet.";
+      const message = err.response?.data?.message || "❌ Något gick fel vid lånet.";
       toast.error(message);
     }
   };
@@ -50,7 +52,7 @@ const Library = () => {
   return (
     <div className="library-wrapper">
       <ToastContainer position="top-center" autoClose={3000} />
-      <h2>Tillgängliga Böcker</h2>
+      <h2>📚 Tillgängliga Böcker</h2>
       {books.length === 0 ? (
         <p>🚫 Inga böcker tillgängliga just nu.</p>
       ) : (

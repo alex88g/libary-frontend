@@ -5,8 +5,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../AdminDashboard.css";
 
+const API_BASE = import.meta.env.VITE_API_BASE || "/api";
+
 const AdminDashboard = () => {
   const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     title: "",
     author: "",
@@ -26,11 +29,14 @@ const AdminDashboard = () => {
   const [editId, setEditId] = useState(null);
 
   const fetchBooks = async () => {
+    setLoading(true);
     try {
-      const res = await axios.get("http://localhost:5000/api/books");
+      const res = await axios.get(`${API_BASE}/books`);
       setBooks(res.data);
     } catch (err) {
-      toast.error("Kunde inte hämta böcker");
+      toast.error("❌ Kunde inte hämta böcker");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,16 +51,16 @@ const AdminDashboard = () => {
 
     try {
       if (editId) {
-        await axios.put(`http://localhost:5000/api/books/${editId}`, form, {
+        await axios.put(`${API_BASE}/books/${editId}`, form, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        toast.success("Boken har uppdaterats");
+        toast.success("✅ Boken har uppdaterats");
         setEditId(null);
       } else {
-        await axios.post("http://localhost:5000/api/books", form, {
+        await axios.post(`${API_BASE}/books`, form, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        toast.success("Ny bok har lagts till");
+        toast.success("✅ Ny bok har lagts till");
       }
 
       setForm({
@@ -73,10 +79,11 @@ const AdminDashboard = () => {
         format: "inbunden",
         location: ""
       });
+
       fetchBooks();
     } catch (err) {
       console.error("Fel:", err.response?.data || err.message);
-      toast.error("Fel vid sparande av bok");
+      toast.error("❌ Fel vid sparande av bok");
     }
   };
 
@@ -84,13 +91,13 @@ const AdminDashboard = () => {
     const token = localStorage.getItem("token");
     if (window.confirm("Är du säker att du vill ta bort boken?")) {
       try {
-        await axios.delete(`http://localhost:5000/api/books/${id}`, {
+        await axios.delete(`${API_BASE}/books/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        toast.success("Boken har raderats");
+        toast.success("🗑️ Boken har raderats");
         fetchBooks();
       } catch (err) {
-        toast.error("Kunde inte radera boken");
+        toast.error("❌ Kunde inte radera boken");
       }
     }
   };
@@ -113,7 +120,7 @@ const AdminDashboard = () => {
       format: book.format,
       location: book.location
     });
-    toast.info("Redigerar bok");
+    toast.info("✏️ Redigerar bok");
   };
 
   useEffect(() => {
@@ -123,7 +130,6 @@ const AdminDashboard = () => {
   return (
     <div className="admin-container">
       <ToastContainer position="top-center" autoClose={3000} />
-
       <h2>📚 Adminpanel – Hantera böcker</h2>
 
       <form onSubmit={handleSubmit} className="admin-form">
@@ -153,23 +159,29 @@ const AdminDashboard = () => {
           </select>
         </div>
         <textarea name="description" placeholder="Beskrivning" value={form.description} onChange={handleChange} required />
-        <button type="submit" className="submit-button">{editId ? "Uppdatera bok" : "Lägg till bok"}</button>
+        <button type="submit" className="submit-button">
+          {editId ? "Uppdatera bok" : "Lägg till bok"}
+        </button>
       </form>
 
       <hr />
 
-      <div className="book-list">
-        {books.map((book) => (
-          <div key={book.id} className="admin-book">
-            <BookCard book={book} onDelete={handleDelete} onEdit={handleEdit} />
-            {book.availability === "utlånad" && book.borrowedBy && (
-              <p className="borrowed-by">
-                📌 Utlånad av: <strong>{book.borrowedBy}</strong>
-              </p>
-            )}
-          </div>
-        ))}
-      </div>
+      {loading ? (
+        <p>Laddar böcker...</p>
+      ) : (
+        <div className="book-list">
+          {books.map((book) => (
+            <div key={book.id} className="admin-book">
+              <BookCard book={book} onDelete={handleDelete} onEdit={handleEdit} />
+              {book.availability === "utlånad" && book.borrowedBy && (
+                <p className="borrowed-by">
+                  📌 Utlånad av: <strong>{book.borrowedBy}</strong>
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
