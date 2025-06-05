@@ -1,0 +1,94 @@
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.profile-card {
+  background-color: #f9f9f9;
+  margin-top: 200px;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.profile-card h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.profile-info p {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.delete-button {
+  margin-top: 2rem;
+  background-color: #c0392b;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #a93226;
+}
+
+/* --- Responsivitet --- */
+
+/* Mobil (≤600px) */
+@media (max-width: 600px) {
+  .profile-container {
+    padding: 1rem;
+  }
+
+  .profile-card {
+    padding: 1.5rem;
+  }
+
+  .profile-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .profile-info p {
+    font-size: 1rem;
+  }
+
+  .delete-button {
+    width: 100%;
+    padding: 0.7rem 1rem;
+  }
+}
+
+/* Surfplatta/laptop (601px–1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .profile-card {
+    padding: 2rem;
+    max-width: 600px;
+  }
+
+  .profile-card h2 {
+    font-size: 1.7rem;
+  }
+
+  .profile-info p {
+    font-size: 1.05rem;
+  }
+}
+
+/* Desktop (≥1025px) */
+@media (min-width: 1025px) {
+  .profile-card {
+    max-width: 600px;
+  }
+}

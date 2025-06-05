@@ -1,0 +1,154 @@
+.reviews {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 10px;
+  max-width: 700px;
+  margin: 2rem auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.reviews h4 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #343a40;
+  text-align: center;
+}
+
+.reviews form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.reviews select,
+.reviews textarea {
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.reviews button {
+  padding: 0.6rem 1.2rem;
+  background-color: #4e937a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.reviews button:hover {
+  background-color: #3b7b64;
+}
+
+/* Recensionskort */
+.review {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 5px solid #4e937a;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.review strong {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #2d2d2d;
+}
+
+.review p {
+  margin: 0.4rem 0;
+  color: #555;
+}
+
+.review-date {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 4px;
+}
+
+/* Knappsektion */
+.review-actions {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.review-actions button {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #dee2e6;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.review-actions button:hover {
+  background-color: #ced4da;
+}
+
+/* Redigeringsläge */
+.edit-box {
+  background-color: #fff3cd;
+  border-left: 5px solid #ffc107;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.edit-box textarea,
+.edit-box select {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.edit-box button {
+  margin-right: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #4e937a;
+  color: white;
+  cursor: pointer;
+}
+
+.edit-box button:hover {
+  background-color: #3b7b64;
+}
+
+/* RESPONSIVT */
+@media (max-width: 600px) {
+  .reviews {
+    padding: 1rem;
+  }
+
+  .reviews h4 {
+    font-size: 1.25rem;
+  }
+
+  .review-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .review-actions button {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1000px) {
+  .reviews {
+    padding: 2rem;
+  }
+}

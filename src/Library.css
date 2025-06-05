@@ -1,0 +1,103 @@
+.library-wrapper {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.library-wrapper h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+}
+
+/* Grid för korten */
+.library-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+/* Kortkomponent */
+.card {
+  background: white;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* Formulärfält */
+input,
+select {
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  width: 100%;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+/* Knappar */
+button {
+  padding: 0.6rem 1.1rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+}
+
+/* För att inte knappar sitter ihop vertikalt */
+.card button + button {
+  margin-top: 0.5rem;
+}
+
+/* RESPONSIVITET */
+
+/* Mobilanpassning (<600px) */
+@media (max-width: 600px) {
+  .library-wrapper {
+    padding: 1rem;
+  }
+
+  .library-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  button {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+/* Desktop med mycket skärmyta (>1000px) */
+@media (min-width: 1000px) {
+  .library-wrapper {
+    padding: 2rem 3rem;
+  }
+
+  .library-grid {
+    gap: 2.5rem;
+  }
+
+  .card {
+    padding: 2rem;
+  }
+}

@@ -1,0 +1,145 @@
+.admin-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.admin-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2e5c4f;
+  font-size: 2rem;
+}
+
+.admin-form {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+}
+
+.admin-form h3 {
+  margin-bottom: 1.5rem;
+  color: #444;
+  font-size: 1.3rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  column-gap: 1.2rem;
+  row-gap: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border 0.2s;
+  box-sizing: border-box;
+  margin-bottom: 0.5rem;
+}
+
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
+  border-color: #4e937a;
+  outline: none;
+  background-color: #f2fdfb;
+}
+
+.admin-form textarea {
+  min-height: 80px;
+  resize: vertical;
+  grid-column: span 2;
+}
+
+.submit-button {
+  background-color: #4e937a;
+  color: white;
+  padding: 0.8rem 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-button:hover {
+  background-color: #3c7d65;
+}
+
+.book-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.admin-book {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.borrowed-by {
+  margin-top: 0.5rem;
+  font-style: italic;
+  color: #cc3300;
+  font-weight: 500;
+}
+
+.admin-book button {
+  margin-right: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+/* MOBIL (<600px) */
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-form {
+    padding: 1.25rem;
+  }
+
+  .admin-form h3 {
+    font-size: 1.1rem;
+  }
+
+  .admin-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .admin-form textarea {
+    grid-column: span 1;
+  }
+
+  .book-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* STÖRRE DESKTOP (>1200px) */
+@media (min-width: 1200px) {
+  .admin-form {
+    padding: 2.5rem;
+  }
+
+  .admin-form h3 {
+    font-size: 1.4rem;
+  }
+
+  .admin-container h2 {
+    font-size: 2.2rem;
+  }
+}

@@ -1,0 +1,62 @@
+.review-page-container {
+  padding: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.book-details {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.book-cover {
+  width: 150px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.book-meta {
+  flex: 1;
+  min-width: 200px;
+}
+
+.book-meta p {
+  margin: 4px 0;
+  color: #333;
+  line-height: 1.4;
+  font-size: 0.95rem;
+}
+
+/* RESPONSIVITET */
+@media (max-width: 600px) {
+  .book-details {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .book-cover {
+    width: 120px;
+  }
+
+  .book-meta {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+@media (min-width: 1000px) {
+  .review-page-container {
+    padding: 2rem;
+  }
+
+  .book-meta p {
+    font-size: 1rem;
+  }
+}
