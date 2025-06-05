@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
-const API_BASE = import.meta.env.VITE_API_BASE;
+const API_BASE = "/api";
 
 // AUTH
 export const register = (data) => axios.post(`${API_BASE}/auth/register`, data);
