@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Library.css";
 
-const API_BASE = import.meta.env.VITE_API_BASE || "/api";
+const API_BASE = "/api";
 
 const Library = () => {
   const [books, setBooks] = useState([]);
