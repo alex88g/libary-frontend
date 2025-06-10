@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Login.css";
 
-const API_BASE = import.meta.env.VITE_API_URL;
+const API_BASE = "http://localhost:5000/api";
 
 const Login = () => {
   const [form, setForm] = useState({
@@ -21,9 +21,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(`${API_BASE}/auth/login`, form, {
-        withCredentials: true,
-      });
+      const res = await axios.post(`${API_BASE}/auth/login`, form);
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.user.role);

@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../AdminDashboard.css";
 
-const API_BASE = import.meta.env.VITE_API_URL;
+const API_BASE = "http://localhost:5000/api";
 
 const AdminDashboard = () => {
   const [books, setBooks] = useState([]);
