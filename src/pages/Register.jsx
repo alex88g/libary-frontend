@@ -22,26 +22,29 @@ const Register = () => {
   };
 
   const handleRegister = async (e) => {
-    e.preventDefault();
-    const { username, email, password } = form;
+  e.preventDefault();
+  const { username, email, password } = form;
 
-    if (password.length < 8) {
-      setError("Lösenordet måste vara minst 8 tecken.");
-      return;
-    }
+  if (password.length < 8) {
+    setError("Lösenordet måste vara minst 8 tecken.");
+    return;
+  }
 
-    try {
-      await axios.post(`${API_BASE}/auth/register`, { username, email, password });
-      toast.success("🎉 Registrerad! Du kan nu logga in.");
-      setTimeout(() => {
-        window.location.href = "/login";
-      }, 2000);
-    } catch (err) {
-      const msg = err.response?.data?.message || "Fel vid registrering.";
-      setError(msg);
-      toast.error(msg);
-    }
-  };
+  try {
+    await axios.post(`${API_BASE}/auth/register`, { username, email, password }, {
+      withCredentials: true
+    });
+    toast.success("🎉 Registrerad! Du kan nu logga in.");
+    setTimeout(() => {
+      window.location.href = "/login";
+    }, 2000);
+  } catch (err) {
+    const msg = err.response?.data?.message || "Fel vid registrering.";
+    setError(msg);
+    toast.error(msg);
+  }
+};
+
 
   return (
     <div className="register-container">
