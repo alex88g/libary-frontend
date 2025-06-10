@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://library-backend-production-7d5e.up.railway.app/api/$1"
+    }
+  ]
+}
