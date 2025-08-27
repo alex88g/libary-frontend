@@ -1,39 +1,38 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
-  const token = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
+  const navigate = useNavigate();
+  const { token, role, logout } = useAuth();
 
-  const logout = () => {
-    localStorage.clear();
-    window.location.href = "/login";
+  const handleLogout = () => {
+    logout(); // rensar både context och localStorage
+    navigate("/login", { replace: true });
   };
 
   return (
- <nav>
-  <div>
-    <Link to="/">📚 Bibliotek</Link>
-    <Link to="/Library">Tillgängliga böcker</Link>
+    <nav>
+      <div>
+        <Link to="/">📚 Bibliotek</Link>
+        <Link to="/library">Tillgängliga böcker</Link>
 
-    {token && role === "admin" && <Link to="/admin">Admin</Link>}
+        {token && role === "admin" && <Link to="/admin">Admin</Link>}
+        {token && role !== "admin" && <Link to="/my-loans">Mina lån</Link>}
+        {token && <Link to="/profile">Profil</Link>}
+      </div>
 
-    {token && role !== "admin" && <Link to="/my-loans">Mina lån</Link>}
-
-    {token && <Link to="/profile">Profil</Link>}
-  </div>
-  <div>
-    {!token ? (
-      <>
-        <Link to="/login">Logga in</Link>
-        <Link to="/register">Registrera</Link>
-      </>
-    ) : (
-      <button onClick={logout}>Logga ut</button>
-    )}
-  </div>
-</nav>
-
+      <div>
+        {!token ? (
+          <>
+            <Link to="/login">Logga in</Link>
+            <Link to="/register">Registrera</Link>
+          </>
+        ) : (
+          <button onClick={handleLogout}>Logga ut</button>
+        )}
+      </div>
+    </nav>
   );
 };
 

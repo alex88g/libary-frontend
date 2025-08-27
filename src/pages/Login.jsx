@@ -1,40 +1,50 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { useAuth } from "../context/AuthContext"; 
 import "react-toastify/dist/ReactToastify.css";
 import "../Login.css";
 
 const API_BASE = "http://localhost:5000/api";
 
 const Login = () => {
-  const [form, setForm] = useState({
-    username: "",
-    password: "",
-  });
+  const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const { login } = useAuth(); // <-- sätt/hämta värden via context
+
+  const [form, setForm] = useState({ username: "", password: "" });
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
+      setSubmitting(true);
+
       const res = await axios.post(`${API_BASE}/auth/login`, form);
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", res.data.user.role);
-      localStorage.setItem("userId", res.data.user.id);
+      // Sätt auth-state via context (sparar även i localStorage)
+      login({
+        token: res.data.token,
+        role: res.data.user.role,
+        userId: res.data.user.id,
+      });
 
       toast.success("Inloggning lyckades!");
 
-      setTimeout(() => {
-        window.location.href = res.data.user.role === "admin" ? "/admin" : "/";
-      }, 1500);
+      // Stöd för ?redirect=/något
+      const redirect = params.get("redirect");
+      const fallback = res.data.user.role === "admin" ? "/admin" : "/";
+      navigate(redirect || fallback, { replace: true });
     } catch (err) {
-      const message = err.response?.data?.message || "Inloggning misslyckades";
+      const message = err?.response?.data?.message || "Inloggning misslyckades";
       toast.error(message);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -51,7 +61,7 @@ const Login = () => {
           value={form.username}
           onChange={handleChange}
           required
-          autoComplete="off"
+          autoComplete="username"
         />
         <input
           name="password"
@@ -60,9 +70,12 @@ const Login = () => {
           value={form.password}
           onChange={handleChange}
           required
-          autoComplete="new-password"
+          autoComplete="current-password"
         />
-        <button type="submit">Logga in</button>
+
+        <button type="submit" disabled={submitting}>
+          {submitting ? "Loggar in…" : "Logga in"}
+        </button>
 
         <div className="login-links">
           <Link to="/forgot-password">Glömt lösenord?</Link>

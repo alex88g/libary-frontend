@@ -24,7 +24,7 @@ const ReviewSection = ({ bookId }) => {
  const fetchReviews = async () => {
   try {
     const res = await getReviewsByBookId(bookId);
-    console.log("Reviews från server:", res.data); // <--- lägg till denna
+    console.log("Reviews från server:", res.data);
     setReviews(Array.isArray(res.data) ? res.data : []);
   } catch (err) {
     console.error("Fel vid hämtning av recensioner:", err);

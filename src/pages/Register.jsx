@@ -4,7 +4,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Register.css";
 
-// Dynamisk API-url beroende på miljö
 const API_BASE = "http://localhost:5000/api";
 
 const Register = () => {

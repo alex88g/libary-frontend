@@ -1,40 +1,93 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+const Card = styled.div`
+  background: #fff;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+`;
+
+const Title = styled.h3`
+  margin: 0;
+  color: #2e4a3f;
+`;
+
+const PrimaryButton = styled.button`
+  padding: .6rem 1rem;
+  background: #4e937a;
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  &:hover { background: #3b7b64; }
+`;
+
+const MutedButton = styled.button`
+  padding: .6rem 1rem;
+  background: #dee2e6;
+  color: #333;
+  border: 0;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+`;
+
+const Select = styled.select`
+  padding: .5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+`;
+
+const Img = styled.img`
+  width: 120px;
+  border-radius: 6px;
+`;
+
+const Meta = styled.p`
+  margin: 0;
+`;
 
 const BookCard = ({ book, onBorrow, onDelete, onEdit }) => {
   const [durationDays, setDurationDays] = useState(14);
   const navigate = useNavigate();
 
   return (
-    <div className="card">
-      <h3>{book.title}</h3>
-      <p><strong>Författare:</strong> {book.author}</p>
-      <p>
+    <Card>
+      <Title>{book.title}</Title>
+      <Meta><strong>Författare:</strong> {book.author}</Meta>
+      <Meta>
         <strong>Publiceringsdatum:</strong>{" "}
         {new Date(book.publishedDate).toLocaleDateString("sv-SE", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
+          day: "numeric", month: "long", year: "numeric",
         })}
-      </p>
+      </Meta>
 
-      {book.coverUrl && (
-        <img src={book.coverUrl} alt={book.title} width="120" />
-      )}
-      <p><strong>ISBN:</strong> {book.isbn}</p>
-      <p><strong>Förlag:</strong> {book.publisher}</p>
-      <p><strong>Beskrivning:</strong> {book.description}</p>
-      <p><strong>Genre:</strong> {book.genre}</p>
-      <p><strong>Språk:</strong> {book.language}</p>
-      <p><strong>Sidor:</strong> {book.pages}</p>
-      <p><strong>Format:</strong> {book.format}</p>
-      <p><strong>Plats:</strong> {book.location}</p>
-      <p><strong>Lånepris:</strong> {book.loanPrice} kr</p>
-      <p><strong>Status:</strong> {book.availability}</p>
+      {book.coverUrl && <Img src={book.coverUrl} alt={book.title} />}
+      <Meta><strong>ISBN:</strong> {book.isbn}</Meta>
+      <Meta><strong>Förlag:</strong> {book.publisher}</Meta>
+      <Meta><strong>Beskrivning:</strong> {book.description}</Meta>
+      <Meta><strong>Genre:</strong> {book.genre}</Meta>
+      <Meta><strong>Språk:</strong> {book.language}</Meta>
+      <Meta><strong>Sidor:</strong> {book.pages}</Meta>
+      <Meta><strong>Format:</strong> {book.format}</Meta>
+      <Meta><strong>Plats:</strong> {book.location}</Meta>
+      <Meta><strong>Lånepris:</strong> {book.loanPrice} kr</Meta>
+      <Meta><strong>Status:</strong> {book.availability}</Meta>
+
+      <PrimaryButton onClick={() => navigate(`/book/${book.id}`)}>
+        👁️ Visa detaljsida
+      </PrimaryButton>
 
       {onBorrow && book.availability === "tillgänglig" && (
         <>
-          <select
+          <Select
             value={durationDays}
             onChange={(e) => setDurationDays(parseInt(e.target.value))}
           >
@@ -42,24 +95,22 @@ const BookCard = ({ book, onBorrow, onDelete, onEdit }) => {
             <option value={14}>14 dagar</option>
             <option value={21}>21 dagar</option>
             <option value={30}>30 dagar</option>
-          </select>
-          <button onClick={() => onBorrow(book.id, durationDays)}>
+          </Select>
+          <PrimaryButton onClick={() => onBorrow(book.id, durationDays)}>
             📚 Låna bok
-          </button>
+          </PrimaryButton>
         </>
       )}
 
       {onDelete && (
-        <button onClick={() => onDelete(book.id)}>🗑️ Ta bort</button>
+        <MutedButton onClick={() => onDelete(book.id)}>🗑️ Ta bort</MutedButton>
       )}
-      {onEdit && <button onClick={() => onEdit(book)}>✏️ Redigera</button>}
+      {onEdit && <MutedButton onClick={() => onEdit(book)}>✏️ Redigera</MutedButton>}
 
-  
-     <button onClick={() => navigate(`/book/${book.id}/reviews`)}>
-  ✍️ Lämna recension
-</button>
-
-    </div>
+      <PrimaryButton onClick={() => navigate(`/book/${book.id}/reviews`)}>
+        ✍️ Lämna recension
+      </PrimaryButton>
+    </Card>
   );
 };
 
